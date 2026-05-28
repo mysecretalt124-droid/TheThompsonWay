@@ -1,723 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The E-Commerce Legacy — Marcus Thompson</title>
-  <meta name="description" content="I scaled a 30-year-old family business into a 7-figure digital powerhouse. Discover the 3 shifts that changed everything." />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The E-Commerce Legacy — Marcus Thompson</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --ink: #111214;
-      --ink-soft: #2a2c30;
-      --surface: #F7F6F3;
-      --surface-2: #EEECE8;
-      --white: #FFFFFF;
-      --gold: #C9A84C;
-      --gold-light:#E8CC80;
-      --gold-dark: #9A7330;
-      --text-body: #3D3D3D;
-      --text-mute: #888888;
-      --border: rgba(0,0,0,0.08);
+<style>
 
-      --serif: 'Playfair Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
+:root{
+  --bg:#0f1115;
+  --card:#171a20;
+  --gold:#c9a84c;
+  --gold2:#e6c86f;
+  --text:#f4f4f4;
+  --muted:#a0a0a0;
+  --border:rgba(255,255,255,.08);
+}
 
-      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-      --max-w: 1280px;
-      --gutter: clamp(1.25rem, 5vw, 5rem);
-    }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+}
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+.container{
+  width:min(1200px,92%);
+  margin:auto;
+}
 
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
+h1,h2,h3{
+  font-family:'Playfair Display',serif;
+}
 
-    body {
-      font-family: var(--sans);
-      background: var(--surface);
-      color: var(--text-body);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
+a{
+  text-decoration:none;
+  color:inherit;
+}
 
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
+/* NAV */
 
-    /* LOADER */
-    #loader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: var(--ink);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-    }
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:999;
+  backdrop-filter:blur(10px);
+  background:rgba(15,17,21,.7);
+  border-bottom:1px solid var(--border);
+}
 
-    #loader .loader-wordmark {
-      font-family: var(--serif);
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--surface);
-      opacity: 0;
-    }
+.nav-inner{
+  width:min(1200px,92%);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 0;
+}
 
-    #loader .loader-bar-wrap {
-      width: clamp(140px, 30vw, 220px);
-      height: 1px;
-      background: rgba(255,255,255,0.12);
-      position: relative;
-      overflow: hidden;
-    }
+.logo{
+  font-size:1.2rem;
+  font-weight:700;
+  font-family:'Playfair Display',serif;
+}
 
-    #loader .loader-bar {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
-      transform: scaleX(0);
-      transform-origin: left;
-    }
+.nav-btn{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:black;
+  padding:12px 22px;
+  font-weight:700;
+  border-radius:4px;
+}
 
-    #loader .loader-pct {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--text-mute);
-    }
+/* HERO */
 
-    /* NAV */
-    #navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem var(--gutter);
-      transition: 0.4s;
-    }
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
 
-    #navbar.scrolled {
-      background: rgba(247,246,243,0.88);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 1px 0 var(--border), 0 4px 24px rgba(0,0,0,0.06);
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
+.hero::before{
+  content:'';
+  position:absolute;
+  width:700px;
+  height:700px;
+  background:radial-gradient(circle,rgba(201,168,76,.18),transparent 70%);
+  top:-200px;
+  right:-150px;
+}
 
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--white);
-      transition: color 0.3s;
-    }
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:760px;
+}
 
-    #navbar.scrolled .nav-logo {
-      color: var(--ink);
-    }
+.eyebrow{
+  color:var(--gold2);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:.75rem;
+  margin-bottom:24px;
+}
 
-    .nav-cta {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.6rem 1.4rem;
-      border: 1px solid rgba(255,255,255,0.35);
-      color: var(--white);
-      transition: 0.3s;
-    }
+.hero h1{
+  font-size:clamp(3rem,8vw,6rem);
+  line-height:0.95;
+  margin-bottom:28px;
+}
 
-    #navbar.scrolled .nav-cta {
-      border-color: var(--gold);
-      color: var(--gold-dark);
-    }
+.hero h1 em{
+  color:var(--gold2);
+  font-style:italic;
+}
 
-    .nav-cta:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--ink);
-    }
+.hero p{
+  color:var(--muted);
+  font-size:1.1rem;
+  line-height:1.8;
+  max-width:650px;
+}
 
-    /* HERO */
-    #hero {
-      position: relative;
-      min-height: 100svh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      overflow: hidden;
-      background: var(--ink);
-    }
+.hero-btns{
+  display:flex;
+  gap:18px;
+  margin-top:42px;
+  flex-wrap:wrap;
+}
 
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.55;
-      pointer-events: none;
-    }
+.primary-btn{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:black;
+  padding:18px 32px;
+  border-radius:4px;
+  font-weight:700;
+}
 
-    .hero-left {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: calc(var(--gutter) + 5rem) var(--gutter);
-    }
+.secondary-btn{
+  border:1px solid var(--border);
+  padding:18px 32px;
+  border-radius:4px;
+}
 
-    .hero-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-    }
+/* RESULTS */
 
-    .hero-headline {
-      font-family: var(--serif);
-      font-size: clamp(3.2rem, 6vw, 5.8rem);
-      line-height: 1;
-      color: var(--white);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-    }
+.results{
+  padding:120px 0;
+}
 
-    .hero-headline em {
-      color: var(--gold-light);
-      font-style: italic;
-    }
+.section-title{
+  font-size:3rem;
+  margin-bottom:18px;
+}
 
-    .hero-sub {
-      font-size: 1rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.58);
-      max-width: 42ch;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-    }
+.section-sub{
+  color:var(--muted);
+  max-width:700px;
+  line-height:1.8;
+  margin-bottom:60px;
+}
 
-    .hero-cta-group {
-      opacity: 0;
-    }
+.image-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:30px;
+}
 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink);
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      padding: 1rem 2rem;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.proof-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(201,168,76,0.45);
-    }
+.proof-card img{
+  width:100%;
+  display:block;
+}
 
-    .hero-footnote {
-      margin-top: 0.8rem;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.3);
-    }
+.proof-content{
+  padding:28px;
+}
 
-    /* RIGHT PANEL */
-    .hero-right {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+.proof-content h3{
+  margin-bottom:12px;
+  font-size:1.5rem;
+}
 
-    .hero-visual-panel {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4rem;
-      overflow: hidden;
-    }
+.proof-content p{
+  color:var(--muted);
+  line-height:1.7;
+}
 
-    .hero-visual-glow {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle,
-        rgba(201,168,76,0.22) 0%,
-        rgba(201,168,76,0.08) 35%,
-        transparent 70%);
-      filter: blur(10px);
-    }
+/* INFO SECTION */
 
-    .hero-visual-card {
-      position: relative;
-      z-index: 2;
-      width: min(520px, 100%);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(20px);
-      padding: 3rem;
-      box-shadow:
-        0 20px 80px rgba(0,0,0,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.05);
-    }
+.info{
+  padding:120px 0;
+}
 
-    .visual-label {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-    }
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+}
 
-    .hero-visual-card h3 {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 3vw, 3rem);
-      line-height: 1.05;
-      color: var(--white);
-      margin-bottom: 2rem;
-    }
+.info-card{
+  background:var(--card);
+  padding:42px;
+  border-radius:14px;
+  border:1px solid var(--border);
+}
 
-    .visual-stats {
-      display: grid;
-      gap: 1.25rem;
-    }
+.info-card h3{
+  font-size:2rem;
+  margin-bottom:22px;
+}
 
-    .visual-stats div {
-      padding-top: 1.25rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
+.info-card ul{
+  list-style:none;
+}
 
-    .visual-stats strong {
-      display: block;
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      color: var(--gold-light);
-      margin-bottom: 0.35rem;
-    }
+.info-card li{
+  margin-bottom:18px;
+  color:var(--muted);
+  line-height:1.7;
+}
 
-    .visual-stats span {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.42);
-    }
+.price{
+  font-size:4rem;
+  color:var(--gold2);
+  margin:20px 0;
+}
 
-    /* CTA */
-    #cta {
-      padding: 9rem 0;
-      background: var(--ink);
-      text-align: center;
-    }
+/* CTA */
 
-    .cta-headline {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      color: var(--white);
-      margin-bottom: 1rem;
-    }
+.cta{
+  padding:140px 0;
+  text-align:center;
+}
 
-    .cta-headline em {
-      color: var(--gold-light);
-      font-style: italic;
-    }
+.cta h2{
+  font-size:4rem;
+  margin-bottom:24px;
+}
 
-    .cta-sub {
-      color: rgba(255,255,255,0.45);
-      max-width: 44ch;
-      margin: 0 auto 2rem;
-      line-height: 1.7;
-    }
+.cta p{
+  color:var(--muted);
+  max-width:700px;
+  margin:auto;
+  line-height:1.8;
+}
 
-    .cta-form {
-      display: flex;
-      max-width: 480px;
-      margin: 0 auto;
-    }
+.cta-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:50px;
+  max-width:700px;
+  margin:50px auto 0;
+}
 
-    .cta-input {
-      flex: 1;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-right: none;
-      color: white;
-      padding: 1rem;
-      outline: none;
-    }
+input{
+  width:100%;
+  background:#0d0f13;
+  border:1px solid var(--border);
+  padding:18px;
+  color:white;
+  border-radius:6px;
+  margin-bottom:18px;
+  font-size:1rem;
+}
 
-    .cta-btn {
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      border: none;
-      color: var(--ink);
-      font-weight: 600;
-      padding: 1rem 1.5rem;
-      cursor: pointer;
-    }
+button{
+  width:100%;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:black;
+  border:none;
+  padding:18px;
+  border-radius:6px;
+  font-weight:700;
+  cursor:pointer;
+  font-size:1rem;
+}
 
-    .cta-note {
-      margin-top: 1rem;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.25);
-    }
+footer{
+  padding:40px 0;
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:var(--muted);
+}
 
-    /* TOAST */
-    #toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 999;
-      background: var(--ink-soft);
-      padding: 1rem 1.4rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      color: white;
-      transform: translateY(120%);
-      opacity: 0;
-      transition: 0.4s;
-    }
+@media(max-width:900px){
 
-    #toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  .info-grid{
+    grid-template-columns:1fr;
+  }
 
-    @media (max-width: 900px) {
-      #hero {
-        grid-template-columns: 1fr;
-      }
+  .hero h1{
+    font-size:4rem;
+  }
 
-      .hero-right {
-        min-height: 400px;
-      }
+  .cta h2{
+    font-size:3rem;
+  }
 
-      .cta-form {
-        flex-direction: column;
-        gap: 1rem;
-      }
+}
 
-      .cta-input {
-        border-right: 1px solid rgba(255,255,255,0.1);
-      }
-    }
-  </style>
+</style>
 </head>
-
 <body>
 
-<div id="loader">
-  <p class="loader-wordmark">Marcus Thompson</p>
+<nav>
+  <div class="nav-inner">
+    <div class="logo">The E-Commerce Legacy</div>
 
-  <div class="loader-bar-wrap">
-    <div class="loader-bar" id="loader-bar"></div>
+    <a href="#offer" class="nav-btn">
+      Get Access
+    </a>
   </div>
-
-  <p class="loader-pct" id="loader-pct">0%</p>
-</div>
-
-<nav id="navbar">
-  <a class="nav-logo" href="#">The E-Commerce Legacy</a>
-  <a class="nav-cta" href="#cta">Purchase Access</a>
 </nav>
 
-<section id="hero">
-  <canvas id="hero-canvas"></canvas>
+<section class="hero">
+  <div class="container hero-content">
 
-  <div class="hero-left">
-    <p class="hero-eyebrow">Marcus Thompson — E-Commerce Legacy</p>
+    <div class="eyebrow">
+      MARCUS THOMPSON — E-COMMERCE LEGACY
+    </div>
 
-    <h1 class="hero-headline">
-      Legacy<br><em>Over</em><br>Luck.
+    <h1>
+      Legacy<br>
+      <em>Over</em><br>
+      Luck.
     </h1>
 
-    <p class="hero-sub">
-      I scaled a 30-year-old family business into a 7-figure digital powerhouse.
-      Discover the 3 shifts that changed everything.
+    <p>
+      I scaled multiple e-commerce brands using systems, positioning,
+      automation, and long-term brand building. This isn't another
+      dropshipping course — it's the exact framework I used to build
+      profitable online stores that actually last.
     </p>
 
-    <div class="hero-cta-group">
-      <a href="#cta" class="btn-primary">
-        <span>Purchase The Framework</span>
-        <span>→</span>
+    <div class="hero-btns">
+
+      <a href="#offer" class="primary-btn">
+        Get The Framework
       </a>
 
-      <p class="hero-footnote">
-        Premium digital framework · Instant access after purchase
-      </p>
+      <a href="#results" class="secondary-btn">
+        View Results
+      </a>
+
     </div>
-  </div>
 
-  <div class="hero-right">
-    <div class="hero-visual-panel">
-      <div class="hero-visual-glow"></div>
-
-      <div class="hero-visual-card">
-        <span class="visual-label">The Legacy Framework</span>
-
-        <h3>3 Shifts.<br>One Scalable Brand.</h3>
-
-        <div class="visual-stats">
-          <div>
-            <strong>$1M+</strong>
-            <span>Digital Revenue</span>
-          </div>
-
-          <div>
-            <strong>1,000+</strong>
-            <span>Students</span>
-          </div>
-
-          <div>
-            <strong>18 Months</strong>
-            <span>Growth Timeline</span>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
-<section id="cta">
+<section class="results" id="results">
+
   <div class="container">
-    <h2 class="cta-headline">
-      Ready to Build<br>Your Own <em>Legacy?</em>
+
+    <h2 class="section-title">
+      Real Results.
     </h2>
 
-    <p class="cta-sub">
-      Get instant access to the complete 3-Shift framework with implementation
-      guides, real business examples, and the exact systems used to scale a
-      traditional business into a modern digital brand.
+    <p class="section-sub">
+      These are just small examples from one PayPal account and one of my stores,
+      Northside Supply Co. I've built multiple brands using the same principles
+      you'll learn inside the framework.
     </p>
 
-    <div class="cta-form">
-      <input
-        type="email"
-        class="cta-input"
-        id="email-input"
-        placeholder="your@email.com"
-      />
+    <div class="image-grid">
 
-      <button class="cta-btn" id="cta-submit">
-        Purchase Access
-      </button>
+      <div class="proof-card">
+
+        <img src="paypal.jpg" alt="PayPal Results">
+
+        <div class="proof-content">
+          <h3>PayPal Revenue</h3>
+
+          <p>
+            Revenue processed through one account using backend systems,
+            retention, and high-margin positioning strategies.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="proof-card">
+
+        <img src="northside.jpg" alt="Northside Supply Co">
+
+        <div class="proof-content">
+          <h3>Northside Supply Co.</h3>
+
+          <p>
+            One of several stores built using the Legacy framework.
+            Focused on branding, customer loyalty, and scalable systems.
+          </p>
+        </div>
+
+      </div>
+
     </div>
 
-    <p class="cta-note">
-      Secure checkout · Instant digital delivery
-    </p>
   </div>
+
 </section>
 
-<div id="toast">
-  <span id="toast-msg">Redirecting to secure checkout...</span>
-</div>
+<section class="info">
 
-<script>
-(function initThree() {
-  const canvas = document.getElementById('hero-canvas');
+  <div class="container">
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: true
-  });
+    <div class="info-grid">
 
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      <div class="info-card">
 
-  const scene = new THREE.Scene();
+        <h3>
+          What You Get
+        </h3>
 
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-  camera.position.set(0, 0, 7);
+        <ul>
 
-  const geo = new THREE.TorusKnotGeometry(2, 0.55, 160, 20, 2, 3);
+          <li>
+            ✓ Full Legacy Framework PDF
+          </li>
 
-  const mat = new THREE.MeshBasicMaterial({
-    color: 0xC9A84C,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.18
-  });
+          <li>
+            ✓ Step-by-step video breakdown
+          </li>
 
-  const mesh = new THREE.Mesh(geo, mat);
-  scene.add(mesh);
+          <li>
+            ✓ Brand positioning systems
+          </li>
 
-  function resize() {
-    const hero = document.getElementById('hero');
-    const w = hero.offsetWidth;
-    const h = hero.offsetHeight;
+          <li>
+            ✓ Automation workflows
+          </li>
 
-    renderer.setSize(w, h);
+          <li>
+            ✓ Scaling strategies
+          </li>
 
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  }
+          <li>
+            ✓ Access to the private Discord server
+          </li>
 
-  resize();
-  window.addEventListener('resize', resize);
+          <li>
+            ✓ Ability to contact me personally inside the community
+          </li>
 
-  let t = 0;
+        </ul>
 
-  function animate() {
-    requestAnimationFrame(animate);
+      </div>
 
-    t += 0.004;
+      <div class="info-card" id="offer">
 
-    mesh.rotation.x = t * 0.4;
-    mesh.rotation.y = t * 0.6;
+        <h3>
+          One-Time Access
+        </h3>
 
-    renderer.render(scene, camera);
-  }
+        <div class="price">
+          $19.99
+        </div>
 
-  animate();
-})();
+        <p style="color:var(--muted); line-height:1.8; margin-bottom:30px;">
+          Instant access to the PDF, video training, and private Discord
+          server where you can ask questions and connect directly with me.
+        </p>
 
-(function initLoader() {
-  const bar = document.getElementById('loader-bar');
-  const pct = document.getElementById('loader-pct');
-  const wm = document.querySelector('.loader-wordmark');
-  const loader = document.getElementById('loader');
+        <a href="#checkout" class="primary-btn" style="display:inline-block;">
+          Get Instant Access
+        </a>
 
-  gsap.to(wm, {
-    opacity: 1,
-    duration: 0.6,
-    delay: 0.2
-  });
+      </div>
 
-  gsap.to(bar, {
-    scaleX: 1,
-    duration: 1.6,
-    ease: 'power2.inOut',
-    delay: 0.4,
+    </div>
 
-    onUpdate: function() {
-      const v = Math.round(this.progress() * 100);
-      pct.textContent = v + '%';
-    },
+  </div>
 
-    onComplete: function() {
-      gsap.to(loader, {
-        opacity: 0,
-        duration: 0.6,
-        delay: 0.2,
+</section>
 
-        onComplete: () => {
-          loader.style.display = 'none';
-          startHeroAnim();
-        }
-      });
-    }
-  });
-})();
+<section class="cta" id="checkout">
 
-function startHeroAnim() {
-  const tl = gsap.timeline({
-    defaults: { ease: 'power3.out' }
-  });
+  <div class="container">
 
-  tl.to('.hero-eyebrow', {
-    opacity: 1,
-    duration: 0.8
-  })
+    <h2>
+      Ready To Build<br>
+      Your Own Legacy?
+    </h2>
 
-  .to('.hero-headline', {
-    opacity: 1,
-    duration: 1
-  }, '-=0.5')
+    <p>
+      Stop wasting time on random tactics. Learn the exact framework
+      behind scalable e-commerce brands and profitable long-term growth.
+    </p>
 
-  .to('.hero-sub', {
-    opacity: 1,
-    duration: 0.8
-  }, '-=0.6')
+    <div class="cta-box">
 
-  .to('.hero-cta-group', {
-    opacity: 1,
-    duration: 0.8
-  }, '-=0.5');
-}
+      <input type="email" placeholder="Enter your email">
 
-const navbar = document.getElementById('navbar');
+      <button>
+        Continue To Checkout
+      </button>
 
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+    </div>
 
-document.getElementById('cta-submit').addEventListener('click', () => {
-  const input = document.getElementById('email-input');
+  </div>
 
-  const val = input.value.trim();
+</section>
 
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+<footer>
 
-  if (!emailOk) {
-    input.style.borderColor = '#e05252';
+  © 2026 Marcus Thompson — All Rights Reserved
 
-    setTimeout(() => {
-      input.style.borderColor = '';
-    }, 2000);
-
-    return;
-  }
-
-  const btn = document.getElementById('cta-submit');
-
-  btn.textContent = '✓ Redirecting';
-  input.value = '';
-
-  showToast('Redirecting to secure checkout...');
-});
-
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-
-  document.getElementById('toast-msg').textContent = msg;
-
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 5000);
-}
-</script>
+</footer>
 
 </body>
 </html>
