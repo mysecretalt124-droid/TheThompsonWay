@@ -17,6 +17,16 @@
 
 <style>
 
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(201,168,76,0.12), transparent 30%),
+    radial-gradient(circle at 80% 50%, rgba(201,168,76,0.08), transparent 35%);
+  pointer-events:none;
+}
+  
 :root{
   --bg:#0d1015;
   --bg2:#11161d;
@@ -558,12 +568,8 @@ footer{
 
 <section class="hero">
 
-<div id="hero-gradient"></div>
 
-<div class="container">
-
-<div class="hero-grid">
-
+<div class="hero-content">
 <div class="hero-left">
 
 <div class="eyebrow fade-up">
@@ -620,8 +626,6 @@ Inside The System
 <div class="hero-stat">
 <span>Price</span>
 <strong>$19.99</strong>
-</div>
-
 </div>
 
 </div>
@@ -883,18 +887,6 @@ tl.from('.hero-right',{
   ease:'power3.out'
 },'-=0.8');
 
-// LIGHTWEIGHT HERO EFFECT
-
-const heroGradient = document.getElementById('hero-gradient');
-
-window.addEventListener('mousemove',(e)=>{
-
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * 10;
-
-  heroGradient.style.transform = `translate(${x}px, ${y}px)`;
-
-},{ passive:true });
 
 </script>
 
