@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The E-Commerce Legacy — Marcus Thompson</title>
-  <meta name="description" content="I didn't just build an e-commerce empire. I scaled a 30-year-old family business into a 7-figure digital powerhouse. Here are the 3 shifts that changed everything." />
+  <meta name="description" content="I scaled a 30-year-old family business into a 7-figure digital powerhouse. Discover the 3 shifts that changed everything." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,35 +18,39 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
-    /* ─────────────────────────────────────────
-       TOKENS & RESET
-    ───────────────────────────────────────── */
     :root {
-      --ink:       #111214;
-      --ink-soft:  #2a2c30;
-      --surface:   #F7F6F3;
+      --ink: #111214;
+      --ink-soft: #2a2c30;
+      --surface: #F7F6F3;
       --surface-2: #EEECE8;
-      --white:     #FFFFFF;
-      --gold:      #C9A84C;
+      --white: #FFFFFF;
+      --gold: #C9A84C;
       --gold-light:#E8CC80;
       --gold-dark: #9A7330;
       --text-body: #3D3D3D;
-      --text-mute:  #888888;
-      --border:    rgba(0,0,0,0.08);
+      --text-mute: #888888;
+      --border: rgba(0,0,0,0.08);
 
       --serif: 'Playfair Display', Georgia, serif;
-      --sans:  'DM Sans', system-ui, sans-serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
 
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
       --max-w: 1280px;
       --gutter: clamp(1.25rem, 5vw, 5rem);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
 
     body {
       font-family: var(--sans);
@@ -57,18 +61,21 @@
     }
 
     img { display: block; max-width: 100%; }
-    a   { color: inherit; text-decoration: none; }
+    a { color: inherit; text-decoration: none; }
 
-    /* ─────────────────────────────────────────
-       LOADER
-    ───────────────────────────────────────── */
+    /* LOADER */
     #loader {
-      position: fixed; inset: 0; z-index: 9999;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
       background: var(--ink);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 2rem;
     }
+
     #loader .loader-wordmark {
       font-family: var(--serif);
       font-size: clamp(1.1rem, 2vw, 1.4rem);
@@ -77,6 +84,7 @@
       color: var(--surface);
       opacity: 0;
     }
+
     #loader .loader-bar-wrap {
       width: clamp(140px, 30vw, 220px);
       height: 1px;
@@ -84,39 +92,43 @@
       position: relative;
       overflow: hidden;
     }
+
     #loader .loader-bar {
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
       transform: scaleX(0);
       transform-origin: left;
-      will-change: transform;
     }
+
     #loader .loader-pct {
-      font-family: var(--sans);
       font-size: 0.7rem;
       letter-spacing: 0.2em;
       color: var(--text-mute);
     }
 
-    /* ─────────────────────────────────────────
-       NAVBAR
-    ───────────────────────────────────────── */
+    /* NAV */
     #navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 1.5rem var(--gutter);
-      transition: background 0.4s var(--ease-in-out),
-                  backdrop-filter 0.4s,
-                  box-shadow 0.4s,
-                  padding 0.4s;
+      transition: 0.4s;
     }
+
     #navbar.scrolled {
-      background: rgba(247, 246, 243, 0.88);
-      backdrop-filter: blur(18px) saturate(180%);
-      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      background: rgba(247,246,243,0.88);
+      backdrop-filter: blur(18px);
       box-shadow: 0 1px 0 var(--border), 0 4px 24px rgba(0,0,0,0.06);
-      padding-top: 1rem; padding-bottom: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
     }
+
     .nav-logo {
       font-family: var(--serif);
       font-size: 1.05rem;
@@ -125,34 +137,34 @@
       color: var(--white);
       transition: color 0.3s;
     }
-    #navbar.scrolled .nav-logo { color: var(--ink); }
+
+    #navbar.scrolled .nav-logo {
+      color: var(--ink);
+    }
 
     .nav-cta {
-      font-family: var(--sans);
       font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       padding: 0.6rem 1.4rem;
       border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 2px;
       color: var(--white);
-      transition: all 0.3s var(--ease-out-expo);
+      transition: 0.3s;
     }
+
     #navbar.scrolled .nav-cta {
       border-color: var(--gold);
       color: var(--gold-dark);
     }
+
     .nav-cta:hover {
       background: var(--gold);
       border-color: var(--gold);
       color: var(--ink);
-      transform: translateY(-1px);
     }
 
-    /* ─────────────────────────────────────────
-       HERO
-    ───────────────────────────────────────── */
+    /* HERO */
     #hero {
       position: relative;
       min-height: 100svh;
@@ -162,64 +174,50 @@
       background: var(--ink);
     }
 
-    /* Three.js canvas sits behind everything */
     #hero-canvas {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       opacity: 0.55;
-    }
-
-    /* Subtle grain texture */
-    #hero::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 1;
+      pointer-events: none;
     }
 
     .hero-left {
-      position: relative; z-index: 2;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: calc(var(--gutter) + 5rem) var(--gutter) var(--gutter) var(--gutter);
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: calc(var(--gutter) + 5rem) var(--gutter);
     }
 
     .hero-eyebrow {
-      font-family: var(--sans);
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 0.75rem;
       opacity: 0;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 2rem; height: 1px;
-      background: var(--gold);
-      flex-shrink: 0;
     }
 
     .hero-headline {
       font-family: var(--serif);
       font-size: clamp(3.2rem, 6vw, 5.8rem);
-      font-weight: 700;
-      line-height: 1.0;
+      line-height: 1;
       color: var(--white);
       margin-bottom: 1.5rem;
       opacity: 0;
     }
+
     .hero-headline em {
-      font-style: italic;
       color: var(--gold-light);
+      font-style: italic;
     }
 
     .hero-sub {
-      font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-      font-weight: 300;
+      font-size: 1rem;
       line-height: 1.75;
       color: rgba(255,255,255,0.58);
       max-width: 42ch;
@@ -228,13 +226,13 @@
     }
 
     .hero-cta-group {
-      display: flex; flex-direction: column;
-      align-items: flex-start; gap: 0.75rem;
       opacity: 0;
     }
+
     .btn-primary {
-      display: inline-flex; align-items: center; gap: 0.65rem;
-      font-family: var(--sans);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
       font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -242,1214 +240,484 @@
       color: var(--ink);
       background: linear-gradient(135deg, var(--gold-light), var(--gold));
       padding: 1rem 2rem;
-      border-radius: 2px;
-      border: none; cursor: pointer;
-      position: relative; overflow: hidden;
-      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
-      box-shadow: 0 0 0 0 rgba(201,168,76,0);
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    .btn-primary::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
+
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 32px rgba(201,168,76,0.45);
     }
-    .btn-primary:hover::after { opacity: 1; }
-    .btn-primary span { position: relative; z-index: 1; }
-    .btn-arrow { position: relative; z-index: 1; font-size: 1.1rem; transition: transform 0.3s; }
-    .btn-primary:hover .btn-arrow { transform: translateX(3px); }
 
     .hero-footnote {
+      margin-top: 0.8rem;
       font-size: 0.72rem;
       color: rgba(255,255,255,0.3);
-      letter-spacing: 0.05em;
     }
 
-    /* Right: Marcus photo */
+    /* RIGHT PANEL */
     .hero-right {
-      position: relative; z-index: 2;
-      display: flex; align-items: flex-end; justify-content: center;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
-    .hero-photo-wrap {
-      width: 100%; height: 100%;
+
+    .hero-visual-panel {
       position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      overflow: hidden;
     }
-    .hero-photo-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: top center;
-      filter: grayscale(15%) contrast(1.04);
+
+    .hero-visual-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(201,168,76,0.22) 0%,
+        rgba(201,168,76,0.08) 35%,
+        transparent 70%);
+      filter: blur(10px);
     }
-    /* Gradient fade on left edge of photo */
-    .hero-photo-wrap::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, var(--ink) 0%, transparent 40%);
-      z-index: 1;
-    }
-    /* Gold accent line at bottom */
-    .hero-photo-wrap::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+
+    .hero-visual-card {
+      position: relative;
       z-index: 2;
+      width: min(520px, 100%);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      padding: 3rem;
+      box-shadow:
+        0 20px 80px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.05);
     }
 
-    /* Scroll indicator */
-    .scroll-hint {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      z-index: 10;
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      opacity: 0;
-    }
-    .scroll-hint span {
-      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-    }
-    .scroll-mouse {
-      width: 20px; height: 32px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px;
-      display: flex; justify-content: center; padding-top: 6px;
-    }
-    .scroll-dot {
-      width: 3px; height: 6px;
-      background: var(--gold);
-      border-radius: 2px;
-      animation: scrollDot 2s var(--ease-in-out) infinite;
-    }
-    @keyframes scrollDot {
-      0%   { transform: translateY(0); opacity: 1; }
-      60%  { transform: translateY(10px); opacity: 0; }
-      61%  { transform: translateY(0); opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    /* ─────────────────────────────────────────
-       SECTION SHARED STYLES
-    ───────────────────────────────────────── */
-    section { position: relative; }
-
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding-left: var(--gutter);
-      padding-right: var(--gutter);
-    }
-
-    .section-label {
-      display: inline-flex; align-items: center; gap: 0.65rem;
+    .visual-label {
+      display: inline-block;
       font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold-dark);
-      margin-bottom: 1.25rem;
-    }
-    .section-label::before {
-      content: '';
-      display: block; width: 1.5rem; height: 1px;
-      background: var(--gold);
+      color: var(--gold);
+      margin-bottom: 1.5rem;
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-    }
-
-    /* ─────────────────────────────────────────
-       PROOF / METRICS
-    ───────────────────────────────────────── */
-    #proof {
-      background: var(--ink);
-      padding: 6rem 0;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .proof-inner {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.07);
-    }
-    .proof-stat {
-      padding: 3rem 2.5rem;
-      background: var(--ink-soft);
-      display: flex; flex-direction: column; gap: 0.6rem;
-      position: relative; overflow: hidden;
-      transition: background 0.3s;
-    }
-    .proof-stat:hover { background: #2e3035; }
-    .proof-stat::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      transform: scaleX(0);
-      transition: transform 0.5s var(--ease-out-expo);
-    }
-    .proof-stat:hover::after { transform: scaleX(1); }
-
-    .proof-num {
+    .hero-visual-card h3 {
       font-family: var(--serif);
-      font-size: clamp(2.8rem, 4vw, 3.8rem);
-      font-weight: 700;
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1.05;
       color: var(--white);
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-    .proof-num .accent { color: var(--gold-light); }
-    .proof-label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-mute);
-    }
-    .proof-sub {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.35);
-      line-height: 1.6;
-      margin-top: 0.25rem;
-    }
-
-    /* ─────────────────────────────────────────
-       PROBLEM SECTION
-    ───────────────────────────────────────── */
-    #problem {
-      padding: 8rem 0;
-      background: var(--surface);
-    }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-    .problem-headline {
-      font-family: var(--serif);
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
-      font-weight: 700;
-      line-height: 1.15;
-      color: var(--ink);
       margin-bottom: 2rem;
     }
-    .problem-headline em { font-style: italic; color: var(--gold-dark); }
 
-    .problem-points { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
-    .problem-points li {
-      display: flex; gap: 1rem; align-items: flex-start;
-      font-size: 0.95rem; line-height: 1.7; color: var(--text-body);
-    }
-    .problem-points li .icon {
-      width: 22px; height: 22px; flex-shrink: 0;
-      margin-top: 3px;
-      border-radius: 50%;
-      background: rgba(154, 115, 48, 0.12);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold-dark); font-size: 0.7rem; font-weight: 700;
-    }
-
-    /* Animated chart */
-    .problem-chart-wrap {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2rem;
-      box-shadow: 0 2px 24px rgba(0,0,0,0.05);
-    }
-    .chart-title {
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--text-mute); margin-bottom: 1.5rem;
-    }
-    #problem-chart {
-      width: 100%; height: 200px;
-    }
-    .chart-legend {
-      display: flex; gap: 1.5rem; margin-top: 1rem;
-    }
-    .legend-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.72rem; color: var(--text-mute);
-    }
-    .legend-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-    }
-
-    /* ─────────────────────────────────────────
-       SOLUTION / 3 SHIFTS
-    ───────────────────────────────────────── */
-    #solution {
-      padding: 8rem 0;
-      background: var(--ink);
-    }
-    .solution-top {
+    .visual-stats {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: end;
-      margin-bottom: 4rem;
-    }
-    .solution-headline {
-      font-family: var(--serif);
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
-      font-weight: 700;
-      line-height: 1.15;
-      color: var(--white);
-    }
-    .solution-headline em { font-style: italic; color: var(--gold-light); }
-    .solution-intro {
-      font-size: 0.95rem; line-height: 1.8;
-      color: rgba(255,255,255,0.45);
-      align-self: end;
+      gap: 1.25rem;
     }
 
-    /* Accordion cards */
-    .shifts { display: flex; flex-direction: column; gap: 1px; }
-    .shift-card {
-      background: var(--ink-soft);
-      border: 1px solid rgba(255,255,255,0.06);
-      overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.3s;
-    }
-    .shift-card.open {
-      border-color: rgba(201,168,76,0.3);
-    }
-    .shift-header {
-      display: flex; align-items: center; gap: 1.5rem;
-      padding: 1.8rem 2rem;
-      user-select: none;
-    }
-    .shift-num {
-      font-family: var(--serif);
-      font-size: 1.8rem; font-weight: 700; font-style: italic;
-      color: var(--gold);
-      min-width: 2.5rem;
-      line-height: 1;
-    }
-    .shift-icon {
-      width: 44px; height: 44px; flex-shrink: 0;
-      border-radius: 50%;
-      background: rgba(201,168,76,0.08);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
-      transition: background 0.3s;
-    }
-    .shift-card.open .shift-icon { background: rgba(201,168,76,0.2); }
-    .shift-title-wrap { flex: 1; }
-    .shift-tag {
-      font-size: 0.62rem; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); opacity: 0.7; margin-bottom: 0.25rem;
-    }
-    .shift-title {
-      font-family: var(--serif);
-      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
-      font-weight: 600; color: var(--white);
-    }
-    .shift-toggle {
-      width: 28px; height: 28px;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,0.4);
-      font-size: 0.9rem;
-      transition: all 0.3s var(--ease-out-expo);
-      flex-shrink: 0;
-    }
-    .shift-card.open .shift-toggle {
-      background: var(--gold); border-color: var(--gold);
-      color: var(--ink); transform: rotate(45deg);
-    }
-    .shift-body {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.5s var(--ease-out-expo);
-    }
-    .shift-body-inner {
-      padding: 0 2rem 2rem 2rem;
-      padding-left: calc(2rem + 2.5rem + 1.5rem + 44px + 1.5rem);
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-    }
-    .shift-desc {
-      font-size: 0.92rem; line-height: 1.8;
-      color: rgba(255,255,255,0.5);
-    }
-    .shift-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .shift-bullets li {
-      font-size: 0.85rem; color: rgba(255,255,255,0.38);
-      padding-left: 1.2rem; position: relative;
-      line-height: 1.6;
-    }
-    .shift-bullets li::before {
-      content: '→';
-      position: absolute; left: 0;
-      color: var(--gold); font-size: 0.75rem;
+    .visual-stats div {
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
 
-    /* ─────────────────────────────────────────
-       MARCUS BIO (TRUST SECTION)
-    ───────────────────────────────────────── */
-    #trust {
-      padding: 8rem 0;
-      background: var(--surface-2);
-    }
-    .trust-grid {
-      display: grid;
-      grid-template-columns: 400px 1fr;
-      gap: 6rem;
-      align-items: center;
-    }
-    .trust-photo-frame {
-      position: relative;
-    }
-    .trust-photo-frame::before {
-      content: '';
-      position: absolute;
-      top: -1.5rem; left: -1.5rem;
-      right: 1.5rem; bottom: 1.5rem;
-      border: 1px solid var(--gold);
-      opacity: 0.25;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .trust-photo-frame img {
-      width: 100%; aspect-ratio: 3/4;
-      object-fit: cover; object-position: top;
-      position: relative; z-index: 1;
-      filter: grayscale(20%);
-    }
-    .trust-quote {
-      position: absolute; bottom: -1.5rem; right: -1.5rem; z-index: 2;
-      background: var(--gold);
-      color: var(--ink);
-      padding: 1.2rem 1.5rem;
-      max-width: 220px;
+    .visual-stats strong {
+      display: block;
       font-family: var(--serif);
-      font-size: 0.85rem;
-      font-style: italic;
-      line-height: 1.5;
-      font-weight: 600;
-    }
-    .trust-content .name {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 700; line-height: 1.1; color: var(--ink);
-      margin-bottom: 0.5rem;
-    }
-    .trust-content .name em { font-style: italic; color: var(--gold-dark); }
-    .trust-content .role {
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--text-mute); margin-bottom: 2rem;
-    }
-    .trust-content p {
-      font-size: 0.95rem; line-height: 1.85;
-      color: var(--text-body); margin-bottom: 1.25rem;
-    }
-    .trust-tags {
-      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem;
-    }
-    .trust-tag {
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 0.45rem 0.9rem;
-      border: 1px solid var(--border);
-      color: var(--text-mute); border-radius: 2px;
-      background: var(--white);
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      margin-bottom: 0.35rem;
     }
 
-    /* ─────────────────────────────────────────
-       FINAL CTA
-    ───────────────────────────────────────── */
+    .visual-stats span {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.42);
+    }
+
+    /* CTA */
     #cta {
       padding: 9rem 0;
       background: var(--ink);
-      position: relative; overflow: hidden;
+      text-align: center;
     }
-    #cta::before {
-      content: '';
-      position: absolute;
-      top: -40%; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .cta-inner { text-align: center; position: relative; z-index: 1; }
+
     .cta-headline {
       font-family: var(--serif);
       font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 700; line-height: 1.1;
-      color: var(--white); margin-bottom: 1.25rem;
+      color: var(--white);
+      margin-bottom: 1rem;
     }
-    .cta-headline em { font-style: italic; color: var(--gold-light); }
+
+    .cta-headline em {
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
     .cta-sub {
-      font-size: 1rem; color: rgba(255,255,255,0.42);
-      max-width: 46ch; margin: 0 auto 3rem;
+      color: rgba(255,255,255,0.45);
+      max-width: 44ch;
+      margin: 0 auto 2rem;
       line-height: 1.7;
     }
+
     .cta-form {
-      display: flex; gap: 0;
-      max-width: 480px; margin: 0 auto 1.5rem;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 16px 48px rgba(0,0,0,0.4);
+      display: flex;
+      max-width: 480px;
+      margin: 0 auto;
     }
+
     .cta-input {
       flex: 1;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.1);
       border-right: none;
-      color: var(--white);
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      padding: 1rem 1.25rem;
+      color: white;
+      padding: 1rem;
       outline: none;
-      border-radius: 2px 0 0 2px;
-      transition: background 0.2s, border-color 0.2s;
     }
-    .cta-input::placeholder { color: rgba(255,255,255,0.25); }
-    .cta-input:focus {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(201,168,76,0.4);
-    }
+
     .cta-btn {
-      font-family: var(--sans);
-      font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 1rem 1.5rem;
       background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      color: var(--ink); border: none; cursor: pointer;
-      border-radius: 0 2px 2px 0;
-      transition: filter 0.25s, transform 0.25s;
-      white-space: nowrap;
+      border: none;
+      color: var(--ink);
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
     }
-    .cta-btn:hover { filter: brightness(1.08); transform: translateX(1px); }
+
     .cta-note {
-      font-size: 0.7rem; color: rgba(255,255,255,0.22);
-      letter-spacing: 0.08em;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
     }
 
-    /* ─────────────────────────────────────────
-       FOOTER
-    ───────────────────────────────────────── */
-    footer {
-      background: #0C0D0F;
-      padding: 2rem var(--gutter);
-      display: flex; align-items: center; justify-content: space-between;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    footer .f-logo {
-      font-family: var(--serif);
-      font-size: 0.85rem; color: rgba(255,255,255,0.3);
-    }
-    footer .f-copy {
-      font-size: 0.7rem; color: rgba(255,255,255,0.18);
-      letter-spacing: 0.06em;
-    }
-
-    /* ─────────────────────────────────────────
-       TOAST
-    ───────────────────────────────────────── */
+    /* TOAST */
     #toast {
-      position: fixed; bottom: 2rem; right: 2rem; z-index: 9998;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
       background: var(--ink-soft);
-      border: 1px solid rgba(255,255,255,0.08);
       padding: 1rem 1.4rem;
-      border-radius: 4px;
-      display: flex; gap: 0.75rem; align-items: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      transform: translateY(120%); opacity: 0;
-      transition: all 0.4s var(--ease-out-expo);
-      font-size: 0.85rem; color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: white;
+      transform: translateY(120%);
+      opacity: 0;
+      transition: 0.4s;
     }
-    #toast.show { transform: translateY(0); opacity: 1; }
-    #toast .t-icon { font-size: 1.1rem; }
 
-    /* ─────────────────────────────────────────
-       RESPONSIVE
-    ───────────────────────────────────────── */
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
     @media (max-width: 900px) {
       #hero {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
       }
+
       .hero-right {
-        height: 55vw; min-height: 300px;
-        order: -1;
+        min-height: 400px;
       }
-      .hero-left { padding-top: calc(var(--gutter) + 4rem); }
-      .hero-sub { max-width: 100%; }
-      .proof-inner { grid-template-columns: 1fr; }
-      .problem-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .solution-top { grid-template-columns: 1fr; }
-      .shift-body-inner { grid-template-columns: 1fr; padding-left: 2rem; }
-      .trust-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .trust-photo-frame { max-width: 300px; }
-      .trust-quote { display: none; }
-      .cta-form { flex-direction: column; box-shadow: none; }
-      .cta-input { border-right: 1px solid rgba(255,255,255,0.1); border-radius: 2px; }
-      .cta-btn { border-radius: 2px; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+      .cta-form {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .cta-input {
+        border-right: 1px solid rgba(255,255,255,0.1);
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- ══════════════ LOADER ══════════════ -->
-  <div id="loader">
-    <p class="loader-wordmark">Marcus Thompson</p>
-    <div class="loader-bar-wrap">
-      <div class="loader-bar" id="loader-bar"></div>
-    </div>
-    <p class="loader-pct" id="loader-pct">0%</p>
+<div id="loader">
+  <p class="loader-wordmark">Marcus Thompson</p>
+
+  <div class="loader-bar-wrap">
+    <div class="loader-bar" id="loader-bar"></div>
   </div>
 
-  <!-- ══════════════ NAVBAR ══════════════ -->
-  <nav id="navbar">
-    <a class="nav-logo" href="#">The E-Commerce Legacy</a>
-    <a class="nav-cta" href="#cta">Get The Framework</a>
-  </nav>
+  <p class="loader-pct" id="loader-pct">0%</p>
+</div>
 
-  <!-- ══════════════ HERO ══════════════ -->
-  <section id="hero">
-    <canvas id="hero-canvas"></canvas>
+<nav id="navbar">
+  <a class="nav-logo" href="#">The E-Commerce Legacy</a>
+  <a class="nav-cta" href="#cta">Purchase Access</a>
+</nav>
 
-    <div class="hero-left">
-      <p class="hero-eyebrow">Marcus Thompson — E-Commerce Legacy</p>
-      <h1 class="hero-headline">Legacy<br><em>Over</em><br>Luck.</h1>
-      <p class="hero-sub">
-        I didn't just build an e-commerce empire. I scaled a 30-year-old family
-        business into a 7-figure digital powerhouse. Here are the 3 shifts
-        that changed everything.
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow">Marcus Thompson — E-Commerce Legacy</p>
+
+    <h1 class="hero-headline">
+      Legacy<br><em>Over</em><br>Luck.
+    </h1>
+
+    <p class="hero-sub">
+      I scaled a 30-year-old family business into a 7-figure digital powerhouse.
+      Discover the 3 shifts that changed everything.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="#cta" class="btn-primary">
+        <span>Purchase The Framework</span>
+        <span>→</span>
+      </a>
+
+      <p class="hero-footnote">
+        Premium digital framework · Instant access after purchase
       </p>
-      <div class="hero-cta-group">
-        <a href="#cta" class="btn-primary">
-          <span>Download The Free Framework</span>
-          <span class="btn-arrow">→</span>
-        </a>
-        <p class="hero-footnote">The 3-Shift PDF &nbsp;·&nbsp; No spam &nbsp;·&nbsp; Unsubscribe anytime</p>
-      </div>
     </div>
-
-    <div class="hero-right">
-      <div class="hero-photo-wrap">
-        <!--
-          PLACEHOLDER: Replace the src below with the actual Marcus Thompson photo.
-          Recommended: a high-resolution portrait, vertical orientation, dark clothing,
-          neutral/dark background. Approx dimensions: 800×1100px minimum.
-        -->
-        <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=85&auto=format&fit=crop&crop=faces"
-          alt="Marcus Thompson — E-Commerce Expert"
-          loading="eager"
-        />
-      </div>
-    </div>
-
-    <div class="scroll-hint" id="scroll-hint">
-      <div class="scroll-mouse"><div class="scroll-dot"></div></div>
-      <span>Scroll</span>
-    </div>
-  </section>
-
-  <!-- ══════════════ PROOF ══════════════ -->
-  <section id="proof">
-    <div class="container">
-      <div class="proof-inner">
-        <div class="proof-stat reveal">
-          <div class="proof-num"><span class="counter" data-target="1">0</span><span class="accent">M</span></div>
-          <div class="proof-label">Revenue in 18 Months</div>
-          <div class="proof-sub">Starting from $0 in the digital channel — no outside funding.</div>
-        </div>
-        <div class="proof-stat reveal">
-          <div class="proof-num"><span class="counter" data-target="3">0</span></div>
-          <div class="proof-label">Core Principles</div>
-          <div class="proof-sub">The only framework you need to build a lasting e-commerce brand.</div>
-        </div>
-        <div class="proof-stat reveal">
-          <div class="proof-num"><span class="counter" data-target="1000">0</span><span class="accent">+</span></div>
-          <div class="proof-label">Students Enrolled</div>
-          <div class="proof-sub">Founders and operators who've implemented the Legacy method.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ PROBLEM ══════════════ -->
-  <section id="problem">
-    <div class="container">
-      <div class="problem-grid">
-        <div>
-          <p class="section-label reveal">The Problem</p>
-          <h2 class="problem-headline reveal">The Old Way<br>is <em>Broken.</em></h2>
-          <ul class="problem-points">
-            <li class="reveal">
-              <span class="icon">✗</span>
-              <span><strong>Saturated product markets.</strong> Every niche has a hundred copycats. Racing to the bottom on price is a war you will lose.</span>
-            </li>
-            <li class="reveal">
-              <span class="icon">✗</span>
-              <span><strong>Skyrocketing ad costs.</strong> Meta and Google CPMs have tripled since 2019. Paid acquisition is no longer a sustainable moat.</span>
-            </li>
-            <li class="reveal">
-              <span class="icon">✗</span>
-              <span><strong>No brand, no loyalty.</strong> Transactional customers leave the moment a competitor offers a 10% discount. You're renting attention, not owning it.</span>
-            </li>
-            <li class="reveal">
-              <span class="icon">✗</span>
-              <span><strong>Manual everything.</strong> Founders trapped in operations — packing boxes, answering support tickets, posting on social. That's a job, not a legacy.</span>
-            </li>
-          </ul>
-        </div>
-        <div class="reveal">
-          <div class="problem-chart-wrap">
-            <p class="chart-title">Average CAC vs. LTV — Traditional vs. Legacy Method</p>
-            <canvas id="problem-chart"></canvas>
-            <div class="chart-legend">
-              <div class="legend-item"><div class="legend-dot" style="background:#e05252"></div>Traditional E-Com CAC</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#C9A84C"></div>Legacy Method LTV</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ SOLUTION ══════════════ -->
-  <section id="solution">
-    <div class="container">
-      <div class="solution-top">
-        <div>
-          <p class="section-label" style="color: var(--gold); opacity: 0.8;">
-            <span style="background:var(--gold); display:inline-block; width:1.5rem; height:1px; vertical-align:middle; margin-right:0.65rem;"></span>
-            The Framework
-          </p>
-          <h2 class="solution-headline reveal">The <em>3 Shifts</em><br>That Change<br>Everything.</h2>
-        </div>
-        <p class="solution-intro reveal">
-          These aren't tactics. They're fundamental rewirings of how you think about
-          your business. Each shift compounds on the last. Together, they create
-          something competitors can't copy: a genuine legacy.
-        </p>
-      </div>
-
-      <div class="shifts">
-        <!-- SHIFT 1 -->
-        <div class="shift-card" data-shift="0">
-          <div class="shift-header">
-            <span class="shift-num">01</span>
-            <div class="shift-icon">🎯</div>
-            <div class="shift-title-wrap">
-              <div class="shift-tag">Shift One</div>
-              <div class="shift-title">From Product to Problem</div>
-            </div>
-            <div class="shift-toggle">+</div>
-          </div>
-          <div class="shift-body">
-            <div class="shift-body-inner">
-              <p class="shift-desc">
-                Stop leading with what you sell. Start leading with the problem
-                you solve. The most defensible brands in the world aren't known
-                for their SKUs — they're known for the transformation they
-                deliver. When you own a problem, you own a market.
-              </p>
-              <ul class="shift-bullets">
-                <li>Identify your customer's unspoken frustration</li>
-                <li>Reposition every product as a solution, not a commodity</li>
-                <li>Build marketing around outcomes, not features</li>
-                <li>Raise prices with confidence by anchoring to value</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- SHIFT 2 -->
-        <div class="shift-card" data-shift="1">
-          <div class="shift-header">
-            <span class="shift-num">02</span>
-            <div class="shift-icon">🤝</div>
-            <div class="shift-title-wrap">
-              <div class="shift-tag">Shift Two</div>
-              <div class="shift-title">From Customers to Community</div>
-            </div>
-            <div class="shift-toggle">+</div>
-          </div>
-          <div class="shift-body">
-            <div class="shift-body-inner">
-              <p class="shift-desc">
-                A customer buys once. A community member evangelizes forever.
-                When your buyers feel like they belong to something bigger than
-                a transaction, retention becomes a lagging indicator — not a
-                metric you chase. Community is the only moat that gets stronger
-                as you grow.
-              </p>
-              <ul class="shift-bullets">
-                <li>Design touchpoints that create belonging, not just satisfaction</li>
-                <li>Build user-generated content loops into the product experience</li>
-                <li>Turn top customers into brand architects</li>
-                <li>Reduce churn by 40–60% through identity attachment</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- SHIFT 3 -->
-        <div class="shift-card" data-shift="2">
-          <div class="shift-header">
-            <span class="shift-num">03</span>
-            <div class="shift-icon">⚙️</div>
-            <div class="shift-title-wrap">
-              <div class="shift-tag">Shift Three</div>
-              <div class="shift-title">From Manual to Automated</div>
-            </div>
-            <div class="shift-toggle">+</div>
-          </div>
-          <div class="shift-body">
-            <div class="shift-body-inner">
-              <p class="shift-desc">
-                Every hour you spend in operations is an hour you're not
-                spending on strategy. The goal isn't to work harder than your
-                competitors — it's to build systems that work while you sleep.
-                Automation isn't laziness; it's leverage at scale.
-              </p>
-              <ul class="shift-bullets">
-                <li>Map and eliminate every repetitive touchpoint in your ops</li>
-                <li>Build email and SMS flows that generate revenue on autopilot</li>
-                <li>Delegate with documented SOPs — not tribal knowledge</li>
-                <li>Free 80% of your time for the 20% only you can do</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ TRUST / BIO ══════════════ -->
-  <section id="trust">
-    <div class="container">
-      <div class="trust-grid">
-        <div class="trust-photo-frame reveal">
-          <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=85&auto=format&fit=crop&crop=faces"
-            alt="Marcus Thompson"
-          />
-          <div class="trust-quote">"The goal is to build something your grandchildren will still be running."</div>
-        </div>
-        <div class="trust-content">
-          <p class="section-label reveal">About Marcus</p>
-          <h2 class="name reveal">Marcus<br><em>Thompson.</em></h2>
-          <p class="role reveal">Founder · E-Commerce Operator · Legacy Builder</p>
-          <p class="reveal">
-            I didn't start in e-commerce. I started in my grandfather's hardware
-            store at age 10, stacking shelves and watching him treat every
-            customer like family. When I took over at 34, we had three locations
-            and a loyal but aging customer base. We had six months of runway.
-          </p>
-          <p class="reveal">
-            The next 18 months were the hardest and most clarifying of my life.
-            I applied everything I'd learned in a decade of brand consulting —
-            stripped out the noise, went back to fundamentals, and rebuilt the
-            business around three core principles. We crossed $1M in digital
-            revenue before our second anniversary online.
-          </p>
-          <p class="reveal">
-            The E-Commerce Legacy framework isn't theory. It's the exact
-            playbook, distilled into a free PDF you can implement this week.
-          </p>
-          <div class="trust-tags">
-            <span class="trust-tag reveal">7-Figure Operator</span>
-            <span class="trust-tag reveal">Legacy Business Owner</span>
-            <span class="trust-tag reveal">Shopify Partner</span>
-            <span class="trust-tag reveal">1,000+ Students</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ FINAL CTA ══════════════ -->
-  <section id="cta">
-    <div class="container">
-      <div class="cta-inner">
-        <p class="section-label reveal" style="justify-content:center; color:rgba(201,168,76,0.7);">
-          <span style="background:var(--gold); display:inline-block; width:1.5rem; height:1px; vertical-align:middle; margin-right:0.65rem;"></span>
-          Free Download
-        </p>
-        <h2 class="cta-headline reveal">Ready to Build<br>Your Own <em>Legacy?</em></h2>
-        <p class="cta-sub reveal">
-          The 3-Shift PDF breaks down each principle with real examples, action
-          steps, and the exact sequence I used to take a failing brick-and-mortar
-          to seven figures online.
-        </p>
-        <div class="cta-form reveal" id="cta-form-wrap">
-          <input
-            type="email"
-            class="cta-input"
-            id="email-input"
-            placeholder="your@email.com"
-            aria-label="Your email address"
-          />
-          <button class="cta-btn" id="cta-submit">Get The Free PDF Now</button>
-        </div>
-        <p class="cta-note reveal">I respect your privacy. No fluff, just value.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ FOOTER ══════════════ -->
-  <footer>
-    <span class="f-logo">The E-Commerce Legacy</span>
-    <span class="f-copy">© 2025 Marcus Thompson · All rights reserved</span>
-  </footer>
-
-  <!-- ══════════════ TOAST ══════════════ -->
-  <div id="toast">
-    <span class="t-icon">✦</span>
-    <span id="toast-msg">Check your inbox — the PDF is on its way.</span>
   </div>
 
+  <div class="hero-right">
+    <div class="hero-visual-panel">
+      <div class="hero-visual-glow"></div>
 
-  <script>
-  /* ══════════════════════════════════════════
-     THREE.JS — HERO BACKGROUND 3D SHAPE
-  ══════════════════════════════════════════ */
-  (function initThree() {
-    const canvas = document.getElementById('hero-canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      <div class="hero-visual-card">
+        <span class="visual-label">The Legacy Framework</span>
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-    camera.position.set(0, 0, 7);
+        <h3>3 Shifts.<br>One Scalable Brand.</h3>
 
-    // Torus knot wireframe
-    const geo = new THREE.TorusKnotGeometry(2, 0.55, 160, 20, 2, 3);
-    const mat = new THREE.MeshBasicMaterial({
-      color: 0xC9A84C,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.18,
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    scene.add(mesh);
+        <div class="visual-stats">
+          <div>
+            <strong>$1M+</strong>
+            <span>Digital Revenue</span>
+          </div>
 
-    // Outer rings
-    const ringGeo = new THREE.TorusGeometry(3.2, 0.008, 2, 180);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0xC9A84C, transparent: true, opacity: 0.07 });
-    const ring1 = new THREE.Mesh(ringGeo, ringMat);
-    const ring2 = new THREE.Mesh(ringGeo, ringMat.clone());
-    ring2.rotation.x = Math.PI / 2;
-    scene.add(ring1, ring2);
+          <div>
+            <strong>1,000+</strong>
+            <span>Students</span>
+          </div>
 
-    function resize() {
-      const hero = document.getElementById('hero');
-      const w = hero.offsetWidth, h = hero.offsetHeight;
-      renderer.setSize(w, h);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-    }
-    resize();
-    window.addEventListener('resize', resize);
+          <div>
+            <strong>18 Months</strong>
+            <span>Growth Timeline</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    let t = 0;
-    (function animate() {
-      requestAnimationFrame(animate);
-      t += 0.004;
-      mesh.rotation.x = t * 0.4;
-      mesh.rotation.y = t * 0.6;
-      ring1.rotation.z = t * 0.15;
-      ring2.rotation.y = t * 0.2;
-      renderer.render(scene, camera);
-    })();
-  })();
+<section id="cta">
+  <div class="container">
+    <h2 class="cta-headline">
+      Ready to Build<br>Your Own <em>Legacy?</em>
+    </h2>
 
-  /* ══════════════════════════════════════════
-     LOADER
-  ══════════════════════════════════════════ */
-  (function initLoader() {
-    const bar   = document.getElementById('loader-bar');
-    const pct   = document.getElementById('loader-pct');
-    const wm    = document.querySelector('.loader-wordmark');
-    const loader = document.getElementById('loader');
+    <p class="cta-sub">
+      Get instant access to the complete 3-Shift framework with implementation
+      guides, real business examples, and the exact systems used to scale a
+      traditional business into a modern digital brand.
+    </p>
 
-    // Fade in wordmark
-    gsap.to(wm, { opacity: 1, duration: 0.6, delay: 0.2 });
+    <div class="cta-form">
+      <input
+        type="email"
+        class="cta-input"
+        id="email-input"
+        placeholder="your@email.com"
+      />
 
-    // Animate progress bar
-    gsap.to(bar, {
-      scaleX: 1,
-      duration: 1.6,
-      ease: 'power2.inOut',
-      delay: 0.4,
-      onUpdate: function() {
-        const v = Math.round(this.progress() * 100);
-        pct.textContent = v + '%';
-      },
-      onComplete: function() {
-        gsap.to(loader, {
-          opacity: 0, duration: 0.6, delay: 0.2,
-          onComplete: () => { loader.style.display = 'none'; startHeroAnim(); }
-        });
-      }
-    });
-  })();
+      <button class="cta-btn" id="cta-submit">
+        Purchase Access
+      </button>
+    </div>
 
-  /* ══════════════════════════════════════════
-     HERO ENTRANCE ANIMATIONS
-  ══════════════════════════════════════════ */
-  function startHeroAnim() {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.to('.hero-eyebrow',   { opacity: 1, y: 0, duration: 0.8, delay: 0.1 })
-      .to('.hero-headline',  { opacity: 1, y: 0, duration: 1.0 }, '-=0.5')
-      .to('.hero-sub',       { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
-      .to('.hero-cta-group', { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
-      .to('#scroll-hint',    { opacity: 1, duration: 0.6 }, '-=0.2');
+    <p class="cta-note">
+      Secure checkout · Instant digital delivery
+    </p>
+  </div>
+</section>
+
+<div id="toast">
+  <span id="toast-msg">Redirecting to secure checkout...</span>
+</div>
+
+<script>
+(function initThree() {
+  const canvas = document.getElementById('hero-canvas');
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true
+  });
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, 7);
+
+  const geo = new THREE.TorusKnotGeometry(2, 0.55, 160, 20, 2, 3);
+
+  const mat = new THREE.MeshBasicMaterial({
+    color: 0xC9A84C,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.18
+  });
+
+  const mesh = new THREE.Mesh(geo, mat);
+  scene.add(mesh);
+
+  function resize() {
+    const hero = document.getElementById('hero');
+    const w = hero.offsetWidth;
+    const h = hero.offsetHeight;
+
+    renderer.setSize(w, h);
+
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
   }
 
-  /* ══════════════════════════════════════════
-     SCROLL ANIMATIONS
-  ══════════════════════════════════════════ */
-  gsap.registerPlugin(ScrollTrigger);
+  resize();
+  window.addEventListener('resize', resize);
 
-  gsap.utils.toArray('.reveal').forEach((el, i) => {
-    gsap.fromTo(el,
-      { opacity: 0, y: 32 },
-      {
-        opacity: 1, y: 0,
-        duration: 0.85,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-        },
-        delay: (i % 3) * 0.07,
-      }
-    );
+  let t = 0;
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    t += 0.004;
+
+    mesh.rotation.x = t * 0.4;
+    mesh.rotation.y = t * 0.6;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+})();
+
+(function initLoader() {
+  const bar = document.getElementById('loader-bar');
+  const pct = document.getElementById('loader-pct');
+  const wm = document.querySelector('.loader-wordmark');
+  const loader = document.getElementById('loader');
+
+  gsap.to(wm, {
+    opacity: 1,
+    duration: 0.6,
+    delay: 0.2
   });
 
-  /* ══════════════════════════════════════════
-     COUNTER ANIMATION
-  ══════════════════════════════════════════ */
-  document.querySelectorAll('.counter').forEach(counter => {
-    const target = parseInt(counter.dataset.target);
-    ScrollTrigger.create({
-      trigger: counter,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => {
-        gsap.fromTo({ val: 0 }, { val: target }, {
-          duration: target > 100 ? 2.5 : 1.5,
-          ease: 'power2.out',
-          onUpdate: function() {
-            counter.textContent = Math.round(this.targets()[0].val).toLocaleString();
-          }
-        });
-      }
-    });
-  });
+  gsap.to(bar, {
+    scaleX: 1,
+    duration: 1.6,
+    ease: 'power2.inOut',
+    delay: 0.4,
 
-  /* ══════════════════════════════════════════
-     NAVBAR SCROLL BEHAVIOR
-  ══════════════════════════════════════════ */
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
+    onUpdate: function() {
+      const v = Math.round(this.progress() * 100);
+      pct.textContent = v + '%';
+    },
 
-  /* ══════════════════════════════════════════
-     ACCORDION / SHIFT CARDS
-  ══════════════════════════════════════════ */
-  document.querySelectorAll('.shift-card').forEach(card => {
-    const body   = card.querySelector('.shift-body');
-    const inner  = card.querySelector('.shift-body-inner');
-    const toggle = card.querySelector('.shift-toggle');
+    onComplete: function() {
+      gsap.to(loader, {
+        opacity: 0,
+        duration: 0.6,
+        delay: 0.2,
 
-    card.addEventListener('click', () => {
-      const isOpen = card.classList.contains('open');
-
-      // Close all
-      document.querySelectorAll('.shift-card.open').forEach(c => {
-        c.classList.remove('open');
-        c.querySelector('.shift-body').style.maxHeight = '0';
-      });
-
-      if (!isOpen) {
-        card.classList.add('open');
-        body.style.maxHeight = inner.scrollHeight + 48 + 'px';
-      }
-    });
-  });
-
-  /* ══════════════════════════════════════════
-     PROBLEM CHART (Canvas 2D — no lib needed)
-  ══════════════════════════════════════════ */
-  (function drawChart() {
-    const canvas = document.getElementById('problem-chart');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const W = canvas.offsetWidth || 400;
-    const H = 200;
-    canvas.width  = W * window.devicePixelRatio;
-    canvas.height = H * window.devicePixelRatio;
-    canvas.style.width  = W + 'px';
-    canvas.style.height = H + 'px';
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-
-    // Data: [year 1, y2, y3, y4, y5]
-    const cacData = [18, 28, 38, 52, 71]; // rising CAC
-    const ltvData = [22, 38, 62, 95, 140]; // compounding LTV
-
-    const padL = 36, padR = 12, padT = 12, padB = 28;
-    const plotW = W - padL - padR;
-    const plotH = H - padT - padB;
-    const maxVal = 160;
-
-    function xPos(i) { return padL + (i / (cacData.length - 1)) * plotW; }
-    function yPos(v) { return padT + plotH - (v / maxVal) * plotH; }
-
-    // Grid lines
-    ctx.strokeStyle = 'rgba(0,0,0,0.06)';
-    ctx.lineWidth = 1;
-    for (let i = 0; i <= 4; i++) {
-      const y = padT + (i / 4) * plotH;
-      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
-    }
-
-    // Labels
-    ctx.fillStyle = '#aaa'; ctx.font = '10px DM Sans, sans-serif'; ctx.textAlign = 'right';
-    for (let i = 0; i <= 4; i++) {
-      const v = Math.round(maxVal - (i / 4) * maxVal);
-      ctx.fillText('$' + v, padL - 6, padT + (i / 4) * plotH + 4);
-    }
-    ctx.textAlign = 'center';
-    ['Y1','Y2','Y3','Y4','Y5'].forEach((label, i) => {
-      ctx.fillText(label, xPos(i), H - 6);
-    });
-
-    function drawLine(data, color, animate) {
-      if (!animate) {
-        ctx.beginPath();
-        data.forEach((v, i) => {
-          const x = xPos(i), y = yPos(v);
-          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-        });
-        ctx.strokeStyle = color; ctx.lineWidth = 2;
-        ctx.stroke();
-        // Dots
-        data.forEach((v, i) => {
-          ctx.beginPath();
-          ctx.arc(xPos(i), yPos(v), 3, 0, Math.PI * 2);
-          ctx.fillStyle = color; ctx.fill();
-        });
-        return;
-      }
-    }
-
-    let drawn = false;
-    ScrollTrigger.create({
-      trigger: canvas,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => {
-        if (drawn) return; drawn = true;
-        let progress = 0;
-        function frame() {
-          ctx.clearRect(padL, padT - 2, plotW + padR, plotH + 4);
-
-          // Grid
-          ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
-          for (let i = 0; i <= 4; i++) {
-            const y = padT + (i / 4) * plotH;
-            ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
-          }
-
-          function drawPartial(data, color) {
-            const len = data.length - 1;
-            const totalPts = progress * len;
-            const fullSegs = Math.floor(totalPts);
-            const frac = totalPts - fullSegs;
-
-            ctx.beginPath();
-            data.forEach((v, i) => {
-              if (i > fullSegs + 1) return;
-              let x = xPos(i), y = yPos(v);
-              if (i === fullSegs + 1) {
-                const prev = data[fullSegs];
-                x = xPos(fullSegs) + (xPos(i) - xPos(fullSegs)) * frac;
-                y = yPos(prev) + (yPos(v) - yPos(prev)) * frac;
-              }
-              i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-            });
-            ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.stroke();
-
-            // Dots up to current
-            for (let i = 0; i <= fullSegs; i++) {
-              ctx.beginPath();
-              ctx.arc(xPos(i), yPos(data[i]), 3.5, 0, Math.PI * 2);
-              ctx.fillStyle = color; ctx.fill();
-            }
-          }
-
-          drawPartial(cacData, '#e05252');
-          drawPartial(ltvData, '#C9A84C');
-
-          progress = Math.min(1, progress + 0.018);
-          if (progress < 1) requestAnimationFrame(frame);
+        onComplete: () => {
+          loader.style.display = 'none';
+          startHeroAnim();
         }
-        frame();
-      }
-    });
-  })();
-
-  /* ══════════════════════════════════════════
-     FORM SUBMIT
-  ══════════════════════════════════════════ */
-  document.getElementById('cta-submit').addEventListener('click', () => {
-    const input = document.getElementById('email-input');
-    const val = input.value.trim();
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-    if (!emailOk) {
-      input.style.borderColor = '#e05252';
-      input.focus();
-      setTimeout(() => input.style.borderColor = '', 2000);
-      return;
+      });
     }
+  });
+})();
 
-    // Simulate submission
-    const btn = document.getElementById('cta-submit');
-    btn.textContent = 'Sending…';
-    btn.style.opacity = '0.7';
-    setTimeout(() => {
-      btn.textContent = '✓ Check Your Inbox';
-      btn.style.opacity = '1';
-      input.value = '';
-      showToast('Check your inbox — the PDF is on its way.');
-    }, 1200);
+function startHeroAnim() {
+  const tl = gsap.timeline({
+    defaults: { ease: 'power3.out' }
   });
 
-  function showToast(msg) {
-    const toast = document.getElementById('toast');
-    document.getElementById('toast-msg').textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 5000);
+  tl.to('.hero-eyebrow', {
+    opacity: 1,
+    duration: 0.8
+  })
+
+  .to('.hero-headline', {
+    opacity: 1,
+    duration: 1
+  }, '-=0.5')
+
+  .to('.hero-sub', {
+    opacity: 1,
+    duration: 0.8
+  }, '-=0.6')
+
+  .to('.hero-cta-group', {
+    opacity: 1,
+    duration: 0.8
+  }, '-=0.5');
+}
+
+const navbar = document.getElementById('navbar');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+document.getElementById('cta-submit').addEventListener('click', () => {
+  const input = document.getElementById('email-input');
+
+  const val = input.value.trim();
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+
+  if (!emailOk) {
+    input.style.borderColor = '#e05252';
+
+    setTimeout(() => {
+      input.style.borderColor = '';
+    }, 2000);
+
+    return;
   }
 
-  /* ══════════════════════════════════════════
-     PARALLAX (hero canvas)
-  ══════════════════════════════════════════ */
-  window.addEventListener('scroll', () => {
-    const heroCanvas = document.getElementById('hero-canvas');
-    const y = window.scrollY;
-    heroCanvas.style.transform = `translateY(${y * 0.25}px)`;
-  }, { passive: true });
-  </script>
+  const btn = document.getElementById('cta-submit');
+
+  btn.textContent = '✓ Redirecting';
+  input.value = '';
+
+  showToast('Redirecting to secure checkout...');
+});
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+
+  document.getElementById('toast-msg').textContent = msg;
+
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 5000);
+}
+</script>
+
 </body>
 </html>
