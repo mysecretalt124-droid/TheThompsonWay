@@ -173,8 +173,10 @@ h1{
 
 .checkout-btn{
   width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   padding:20px;
-  border:none;
   border-radius:18px;
   background:linear-gradient(135deg,var(--goldLight),var(--gold));
   color:black;
@@ -184,6 +186,7 @@ h1{
   transition:0.35s ease;
   margin-top:10px;
   box-shadow:0 12px 35px rgba(201,168,76,0.22);
+  text-decoration:none;
 }
 
 .checkout-btn:hover{
@@ -219,17 +222,17 @@ h1{
   overflow:hidden;
 }
 
+.summary-top img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
 .summary-top::after{
   content:'';
   position:absolute;
   inset:0;
   background:linear-gradient(to top, rgba(9,12,16,0.95), transparent 40%);
-}
-
-.summary-top img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
 }
 
 .summary-content{
@@ -304,11 +307,6 @@ h1{
   font-size:0.9rem;
 }
 
-.fade{
-  opacity:0;
-  transform:translateY(40px);
-}
-
 @media(max-width:980px){
 
 .checkout-wrapper{
@@ -352,7 +350,7 @@ body{
 
 <div class="checkout-wrapper">
 
-  <div class="checkout-card fade">
+  <div class="checkout-card">
 
     <div class="checkout-content">
 
@@ -366,7 +364,7 @@ body{
       </h1>
 
       <p class="subtitle">
-        Get instant access to The E-Commerce Legacy framework immediately after checkout. Premium systems, premium positioning, and real long-term e-commerce growth.
+        Get instant access to The E-Commerce Legacy immediately after payment.
       </p>
 
       <form class="checkout-form">
@@ -382,33 +380,19 @@ body{
         </div>
 
         <div class="input-group">
-          <label>Card Number</label>
-          <input type="text" placeholder="4242 4242 4242 4242">
+          <label>Telegram / Discord (Optional)</label>
+          <input type="text" placeholder="@username">
         </div>
 
-        <div class="row">
-
-          <div class="input-group">
-            <label>Expiry Date</label>
-            <input type="text" placeholder="MM / YY">
-          </div>
-
-          <div class="input-group">
-            <label>CVV</label>
-            <input type="text" placeholder="123">
-          </div>
-
-        </div>
-
-        <button type="button" class="checkout-btn">
-          Complete Secure Payment — $19.99
-        </button>
+<a href="https://nowpayments.io/payment/?iid=4766611091&paymentId=5616231752" class="checkout-btn">
+  Pay With Crypto — $19.99
+</a>
 
       </form>
 
       <div class="secure">
         <span>🔒</span>
-        <span>256-bit SSL Secure Checkout</span>
+        <span>Secure Crypto Payment</span>
       </div>
 
       <a href="index.html" class="back-link">
@@ -419,10 +403,10 @@ body{
 
   </div>
 
-  <div class="summary-card fade">
+  <div class="summary-card">
 
     <div class="summary-top">
-      <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1600&auto=format&fit=crop" alt="E-Commerce">
+      <img src="paypal.jpg" alt="E-Commerce">
     </div>
 
     <div class="summary-content">
@@ -432,7 +416,7 @@ body{
       </h2>
 
       <p>
-        The complete premium framework covering positioning, automation, retention systems, scaling strategies, backend optimization, and sustainable brand growth.
+        Premium e-commerce systems covering positioning, retention, automation, scaling, backend optimization, and long-term brand growth.
       </p>
 
       <div class="order-box">
@@ -443,7 +427,7 @@ body{
         </div>
 
         <div class="order-line">
-          <span>Taxes & Fees</span>
+          <span>Fees</span>
           <strong>$0.00</strong>
         </div>
 
@@ -467,8 +451,8 @@ body{
         </div>
 
         <div class="trust-box">
-          <strong>Secure Payment</strong>
-          <span>Encrypted checkout</span>
+          <strong>Crypto Payments</strong>
+          <span>BTC • ETH • LTC • USDT</span>
         </div>
 
       </div>
