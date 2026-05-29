@@ -1,311 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Secure checkout — The E-Commerce Legacy by Marcus Thompson" />
-  <title>Checkout — The E-Commerce Legacy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+<title>Checkout — The E-Commerce Legacy</title>
 
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<meta name="description" content="Secure checkout for The E-Commerce Legacy">
 
-  <link rel="stylesheet" href="css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+
+:root{
+  --bg:#090c10;
+  --bg2:#11161d;
+  --card:#171c24;
+  --gold:#c9a84c;
+  --goldLight:#ebcf83;
+  --text:#d9dde5;
+  --muted:#8e98a8;
+  --line:rgba(255,255,255,0.08);
+  --radius:28px;
+  --shadow:0 20px 80px rgba(0,0,0,0.45);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:50px;
+  position:relative;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(201,168,76,0.08), transparent 28%),
+    radial-gradient(circle at 80% 40%, rgba(201,168,76,0.05), transparent 35%),
+    radial-gradient(circle at 50% 100%, rgba(255,255,255,0.02), transparent 40%);
+  pointer-events:none;
+  z-index:-2;
+}
+
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+  linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size:70px 70px;
+  mask-image:radial-gradient(circle at center, black 30%, transparent 90%);
+  z-index:-3;
+}
+
+.checkout-wrapper{
+  width:100%;
+  max-width:1320px;
+  display:grid;
+  grid-template-columns:1fr 0.9fr;
+  gap:40px;
+  align-items:start;
+}
+
+.checkout-card,
+.summary-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--radius);
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+}
+
+.checkout-card::before,
+.summary-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(135deg, rgba(255,255,255,0.04), transparent 35%);
+  pointer-events:none;
+}
+
+.checkout-content{
+  padding:52px;
+}
+
+.brand{
+  color:var(--goldLight);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:0.75rem;
+  margin-bottom:20px;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  color:white;
+  font-size:clamp(3rem,5vw,4.5rem);
+  line-height:0.95;
+  margin-bottom:24px;
+}
+
+.subtitle{
+  color:var(--muted);
+  line-height:1.9;
+  margin-bottom:38px;
+  max-width:600px;
+}
+
+.checkout-form{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.input-group{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.input-group label{
+  color:white;
+  font-size:0.95rem;
+  font-weight:500;
+}
+
+.input-group input{
+  width:100%;
+  padding:18px;
+  background:#0d1015;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:18px;
+  color:white;
+  font-size:1rem;
+  transition:0.3s ease;
+}
+
+.input-group input:focus{
+  outline:none;
+  border-color:rgba(201,168,76,0.45);
+  box-shadow:0 0 0 4px rgba(201,168,76,0.08);
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.checkout-btn{
+  width:100%;
+  padding:20px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(135deg,var(--goldLight),var(--gold));
+  color:black;
+  font-size:1rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:0.35s ease;
+  margin-top:10px;
+  box-shadow:0 12px 35px rgba(201,168,76,0.22);
+}
+
+.checkout-btn:hover{
+  transform:translateY(-4px);
+}
+
+.secure{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:var(--goldLight);
+  text-decoration:none;
+  margin-top:34px;
+  transition:0.3s ease;
+}
+
+.back-link:hover{
+  opacity:0.8;
+}
+
+.summary-top{
+  position:relative;
+  height:320px;
+  overflow:hidden;
+}
+
+.summary-top::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(9,12,16,0.95), transparent 40%);
+}
+
+.summary-top img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.summary-content{
+  padding:42px;
+}
+
+.summary-content h2{
+  font-family:'Playfair Display',serif;
+  color:white;
+  font-size:2.4rem;
+  margin-bottom:18px;
+}
+
+.summary-content p{
+  color:var(--muted);
+  line-height:1.9;
+}
+
+.order-box{
+  margin-top:36px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:22px;
+  padding:24px;
+}
+
+.order-line{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.order-line:last-child{
+  border-bottom:none;
+}
+
+.order-line span:first-child{
+  color:var(--muted);
+}
+
+.total{
+  color:var(--goldLight);
+  font-weight:700;
+  font-size:1.08rem;
+}
+
+.trust-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:30px;
+}
+
+.trust-box{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+}
+
+.trust-box strong{
+  display:block;
+  color:white;
+  margin-bottom:8px;
+}
+
+.trust-box span{
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+}
+
+@media(max-width:980px){
+
+.checkout-wrapper{
+  grid-template-columns:1fr;
+}
+
+.summary-card{
+  order:-1;
+}
+
+}
+
+@media(max-width:768px){
+
+body{
+  padding:20px;
+}
+
+.checkout-content,
+.summary-content{
+  padding:30px;
+}
+
+.row{
+  grid-template-columns:1fr;
+}
+
+.trust-row{
+  grid-template-columns:1fr;
+}
+
+.summary-top{
+  height:240px;
+}
+
+}
+
+</style>
 </head>
-<body class="checkout-page">
+<body>
 
-  <!-- Checkout Ambient BG -->
-  <div class="co-bg" aria-hidden="true">
-    <div class="co-bg__orb co-bg__orb--1"></div>
-    <div class="co-bg__orb co-bg__orb--2"></div>
-    <div class="co-bg__noise"></div>
-  </div>
+<div class="checkout-wrapper">
 
-  <!-- Top Bar -->
-  <header class="co-header">
-    <a class="co-header__back" href="index.html" aria-label="Back to main page">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>Back</span>
-    </a>
-    <div class="co-header__brand">
-      <span class="co-header__logo-mark">MT</span>
-      <span class="co-header__logo-text">Marcus Thompson</span>
-    </div>
-    <div class="co-header__secure" aria-label="Secure checkout">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="5.5" width="10" height="7.5" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="currentColor" stroke-width="1.2"/></svg>
-      <span>Secure Checkout</span>
-    </div>
-  </header>
+  <div class="checkout-card fade">
 
-  <!-- Checkout Layout -->
-  <main class="co-main" id="checkout-main">
-    <div class="co-layout">
+    <div class="checkout-content">
 
-      <!-- LEFT: Order Summary -->
-      <aside class="co-summary" aria-label="Order summary">
-
-        <div class="co-summary__product">
-          <div class="co-summary__product-image" aria-hidden="true">
-            <div class="co-summary__product-icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M10 16h12M10 11h7M10 21h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </div>
-          <div class="co-summary__product-info">
-            <div class="co-summary__product-name">The E-Commerce Legacy</div>
-            <div class="co-summary__product-author">Marcus Thompson</div>
-            <div class="co-summary__product-type">Digital Framework</div>
-          </div>
-        </div>
-
-        <div class="co-summary__divider" aria-hidden="true"></div>
-
-        <ul class="co-summary__includes" role="list" aria-label="What's included">
-          <li class="co-summary__include-item">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5L5 9.5L11 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>PDF Framework Document</span>
-          </li>
-          <li class="co-summary__include-item">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5L5 9.5L11 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Video Breakdown (Full Access)</span>
-          </li>
-          <li class="co-summary__include-item">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5L5 9.5L11 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Private Discord Community</span>
-          </li>
-          <li class="co-summary__include-item">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5L5 9.5L11 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Brand Positioning Templates</span>
-          </li>
-          <li class="co-summary__include-item">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5L5 9.5L11 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Automation Flow Maps</span>
-          </li>
-          <li class="co-summary__include-item">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5L5 9.5L11 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Direct Access to Marcus</span>
-          </li>
-        </ul>
-
-        <div class="co-summary__divider" aria-hidden="true"></div>
-
-        <div class="co-summary__totals">
-          <div class="co-summary__line">
-            <span>Subtotal</span>
-            <span>$19.99</span>
-          </div>
-          <div class="co-summary__line co-summary__line--total">
-            <span>Total</span>
-            <span class="co-summary__total-price">$19.99</span>
-          </div>
-        </div>
-
-        <div class="co-summary__badge">
-          <div class="co-summary__badge-row">
-            <div class="co-summary__badge-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2l1.5 4h4l-3.25 2.4 1.25 3.85L8 10.3l-3.5 1.95 1.25-3.85L2.5 6h4L8 2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-              <span>Instant access</span>
-            </div>
-            <div class="co-summary__badge-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.5" y="6" width="11" height="8.5" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a3 3 0 016 0V6" stroke="currentColor" stroke-width="1.2"/></svg>
-              <span>256-bit SSL</span>
-            </div>
-            <div class="co-summary__badge-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 8l1.5 1.5L10 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>One-time only</span>
-            </div>
-          </div>
-        </div>
-
-      </aside>
-
-      <!-- RIGHT: Payment Form -->
-      <section class="co-form-section" aria-labelledby="checkout-heading">
-        <div class="co-form-card">
-
-          <h1 class="co-form-heading" id="checkout-heading">Complete your order</h1>
-          <p class="co-form-sub">You're one step away from the full framework.</p>
-
-          <div class="co-form" id="checkoutForm" novalidate>
-
-            <!-- Contact -->
-            <div class="co-form-group">
-              <h2 class="co-form-section-title">Contact</h2>
-              <div class="co-field-wrap">
-                <label class="co-field-label" for="co-email">Email address</label>
-                <div class="co-field-input-wrap">
-                  <input
-                    class="co-field-input"
-                    type="email"
-                    id="co-email"
-                    name="email"
-                    placeholder="your@email.com"
-                    autocomplete="email"
-                    required
-                  />
-                  <div class="co-field-focus-ring" aria-hidden="true"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card Details -->
-            <div class="co-form-group">
-              <h2 class="co-form-section-title">
-                Payment details
-                <span class="co-form-section-badge">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="1.5" y="3.5" width="9" height="7" rx="1.2" stroke="currentColor" stroke-width="1.1"/><path d="M3.5 3.5V2.8a2.5 2.5 0 015 0v.7" stroke="currentColor" stroke-width="1.1"/></svg>
-                  Encrypted
-                </span>
-              </h2>
-
-              <div class="co-field-wrap">
-                <label class="co-field-label" for="co-name">Cardholder name</label>
-                <div class="co-field-input-wrap">
-                  <input
-                    class="co-field-input"
-                    type="text"
-                    id="co-name"
-                    name="name"
-                    placeholder="Full name on card"
-                    autocomplete="cc-name"
-                    required
-                  />
-                  <div class="co-field-focus-ring" aria-hidden="true"></div>
-                </div>
-              </div>
-
-              <div class="co-field-wrap">
-                <label class="co-field-label" for="co-card">Card number</label>
-                <div class="co-field-input-wrap co-field-input-wrap--card">
-                  <span class="co-field-card-icon" aria-hidden="true">
-                    <svg width="26" height="18" viewBox="0 0 26 18" fill="none"><rect x="1" y="1" width="24" height="16" rx="2.5" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="5" width="24" height="4" fill="currentColor" opacity="0.15"/><rect x="3" y="11" width="5" height="2.5" rx=".8" fill="currentColor" opacity="0.4"/></svg>
-                  </span>
-                  <input
-                    class="co-field-input co-field-input--pad-card"
-                    type="text"
-                    id="co-card"
-                    name="cardNumber"
-                    placeholder="1234 5678 9012 3456"
-                    maxlength="19"
-                    autocomplete="cc-number"
-                    inputmode="numeric"
-                    required
-                  />
-                  <div class="co-field-focus-ring" aria-hidden="true"></div>
-                </div>
-              </div>
-
-              <div class="co-field-row">
-                <div class="co-field-wrap">
-                  <label class="co-field-label" for="co-expiry">Expiry</label>
-                  <div class="co-field-input-wrap">
-                    <input
-                      class="co-field-input"
-                      type="text"
-                      id="co-expiry"
-                      name="expiry"
-                      placeholder="MM / YY"
-                      maxlength="7"
-                      autocomplete="cc-exp"
-                      inputmode="numeric"
-                      required
-                    />
-                    <div class="co-field-focus-ring" aria-hidden="true"></div>
-                  </div>
-                </div>
-                <div class="co-field-wrap">
-                  <label class="co-field-label" for="co-cvv">
-                    CVV
-                    <button class="co-field-help" type="button" aria-label="CVV info: 3 or 4 digit code on your card">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/><path d="M7 6.5v4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="4.5" r=".7" fill="currentColor"/></svg>
-                    </button>
-                  </label>
-                  <div class="co-field-input-wrap">
-                    <input
-                      class="co-field-input"
-                      type="text"
-                      id="co-cvv"
-                      name="cvv"
-                      placeholder="•••"
-                      maxlength="4"
-                      autocomplete="cc-csc"
-                      inputmode="numeric"
-                      required
-                    />
-                    <div class="co-field-focus-ring" aria-hidden="true"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Submit -->
-            <button
-              class="co-submit"
-              type="button"
-              id="submitBtn"
-              aria-label="Pay $19.99 and get instant access"
-            >
-              <span class="co-submit__inner">
-                <span class="co-submit__text">Pay $19.99 — Get Instant Access</span>
-                <svg class="co-submit__icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.5 9h11M10.5 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span class="co-submit__loading" aria-hidden="true">
-                  <span class="co-submit__spinner"></span>
-                </span>
-              </span>
-            </button>
-
-            <p class="co-form-legal">
-              By completing this purchase you agree to our
-              <a href="#" class="co-form-legal-link">Terms of Service</a> and
-              <a href="#" class="co-form-legal-link">Privacy Policy</a>.
-              Your card will be charged $19.99 USD once.
-            </p>
-
-          </div>
-
-        </div>
-
-        <!-- Trust row under form -->
-        <div class="co-trust-row" role="list" aria-label="Trust indicators">
-          <div class="co-trust-item" role="listitem">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2L3 5.5v5C3 13.5 5.5 16.5 9 17.5c3.5-1 6-4 6-7V5.5L9 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
-            <span>256-bit SSL encryption</span>
-          </div>
-          <div class="co-trust-item" role="listitem">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="5" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M6 5V3.5a3 3 0 016 0V5" stroke="currentColor" stroke-width="1.3"/><path d="M2 9h14" stroke="currentColor" stroke-width="1.3"/></svg>
-            <span>PCI-DSS compliant</span>
-          </div>
-          <div class="co-trust-item" role="listitem">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M9 5.5v3.5l2.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-            <span>Instant delivery</span>
-          </div>
-          <div class="co-trust-item" role="listitem">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.5 9.5L7 13L14.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>No subscriptions</span>
-          </div>
-        </div>
-
-      </section>
-
-    </div>
-  </main>
-
-  <!-- Success Overlay (shown after "payment") -->
-  <div class="co-success" id="successOverlay" aria-live="polite" aria-atomic="true" hidden>
-    <div class="co-success__card">
-      <div class="co-success__icon" aria-hidden="true">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5"/><path d="M12 20.5L17.5 26L28 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="brand">
+        Secure Checkout
       </div>
-      <h2 class="co-success__heading">You're in.</h2>
-      <p class="co-success__sub">Check your email for instant access to The E-Commerce Legacy. Welcome to the framework.</p>
-      <a class="co-success__cta" href="index.html">Back to Home</a>
+
+      <h1>
+        Complete Your
+        Purchase
+      </h1>
+
+      <p class="subtitle">
+        Get instant access to The E-Commerce Legacy framework immediately after checkout. Premium systems, premium positioning, and real long-term e-commerce growth.
+      </p>
+
+      <form class="checkout-form">
+
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com">
+        </div>
+
+        <div class="input-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Marcus Thompson">
+        </div>
+
+        <div class="input-group">
+          <label>Card Number</label>
+          <input type="text" placeholder="4242 4242 4242 4242">
+        </div>
+
+        <div class="row">
+
+          <div class="input-group">
+            <label>Expiry Date</label>
+            <input type="text" placeholder="MM / YY">
+          </div>
+
+          <div class="input-group">
+            <label>CVV</label>
+            <input type="text" placeholder="123">
+          </div>
+
+        </div>
+
+        <button type="button" class="checkout-btn">
+          Complete Secure Payment — $19.99
+        </button>
+
+      </form>
+
+      <div class="secure">
+        <span>🔒</span>
+        <span>256-bit SSL Secure Checkout</span>
+      </div>
+
+      <a href="index.html" class="back-link">
+        ← Back To Website
+      </a>
+
     </div>
+
   </div>
 
-  <script src="js/script.js"></script>
-  <script src="js/checkout.js"></script>
+  <div class="summary-card fade">
+
+    <div class="summary-top">
+      <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1600&auto=format&fit=crop" alt="E-Commerce">
+    </div>
+
+    <div class="summary-content">
+
+      <h2>
+        The E-Commerce Legacy
+      </h2>
+
+      <p>
+        The complete premium framework covering positioning, automation, retention systems, scaling strategies, backend optimization, and sustainable brand growth.
+      </p>
+
+      <div class="order-box">
+
+        <div class="order-line">
+          <span>Framework Access</span>
+          <strong>$19.99</strong>
+        </div>
+
+        <div class="order-line">
+          <span>Taxes & Fees</span>
+          <strong>$0.00</strong>
+        </div>
+
+        <div class="order-line total">
+          <span>Total</span>
+          <strong>$19.99</strong>
+        </div>
+
+      </div>
+
+      <div class="trust-row">
+
+        <div class="trust-box">
+          <strong>Instant Access</strong>
+          <span>Immediate delivery</span>
+        </div>
+
+        <div class="trust-box">
+          <strong>Private Community</strong>
+          <span>Discord included</span>
+        </div>
+
+        <div class="trust-box">
+          <strong>Secure Payment</strong>
+          <span>Encrypted checkout</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+gsap.from('.checkout-card',{
+  opacity:0,
+  y:60,
+  duration:1.2,
+  ease:'power3.out'
+});
+
+gsap.from('.summary-card',{
+  opacity:0,
+  y:60,
+  duration:1.2,
+  delay:0.15,
+  ease:'power3.out'
+});
+
+gsap.to('.summary-card',{
+  y:-10,
+  duration:4,
+  repeat:-1,
+  yoyo:true,
+  ease:'sine.inOut'
+});
+
+</script>
+
 </body>
 </html>
